@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suspicious Transaction Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar"><div class="brand-mark">ST</div><div><p class="eyebrow">MACHINE LEARNING PROJECT</p><h1>Suspicious Transaction Detection</h1></div><span class="status"><i></i> Model ready</span></header>
+    <section class="intro"><p class="eyebrow">TRANSACTION REVIEW</p><h2>Check a transaction.<br><span>Understand its risk.</span></h2><p class="intro-copy">Enter the transaction details below. A Random Forest model trained on the supplied dataset will classify the transaction as Normal or Suspicious.</p></section>
+    <section class="layout">
+      <form id="transaction-form" class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">INPUT</p><h3>Transaction details</h3></div><button type="button" id="sample-button" class="button button-quiet">Load sample</button></div>
+        <div class="form-grid">
+          <label class="field"><span>Transaction date & time</span><input id="timestamp" type="datetime-local" value="2025-03-25T09:19" required></label>
+          <label class="field"><span>Transaction amount</span><div class="input-wrap"><span>₹</span><input id="amount" type="number" min="2.58" max="7987.24" step="0.01" value="500" required></div><small>Dataset range: ₹2.58–₹7,987.24</small></label>
+          <label class="field"><span>Merchant category</span><select id="merchant-category" required><option value="" disabled>Select category</option><option>Electronics</option><option>Food_Dining</option><option>Groceries</option><option>Luxury_Goods</option><option>Online_Services</option><option>Transport</option></select></label>
+          <label class="field"><span>Device type</span><select id="device-type" required><option value="" disabled>Select device</option><option>Android</option><option>iOS</option><option>Web_Browser</option></select></label>
+          <label class="field"><span>Distance from home</span><input id="distance" type="number" min="0.0123" max="4.8088" step="0.0001" value="0.75" required><small>Dataset value: 0.0123–4.8088 (unit not specified)</small></label>
+          <label class="field"><span>Average spending habit</span><div class="input-wrap"><span>₹</span><input id="average-spending" type="number" min="-36.68" max="200.55" step="0.01" value="100" required></div><small>Dataset range: -36.68–200.55</small></label>
+          <label class="toggle-field"><span><b>Weekend</b><small>Was the transaction on a weekend?</small></span><input id="weekend" type="checkbox"><span class="switch"></span></label>
+          <label class="toggle-field"><span><b>Night transaction</b><small>Did it occur at night?</small></span><input id="night" type="checkbox"><span class="switch"></span></label>
+        </div>
+        <button class="button button-primary" type="submit" id="analyze-button">Analyze transaction <span>→</span></button>
+        <p class="form-note">The IP Risk Score field has been removed from the dataset and this form.</p>
+      </form>
+      <aside class="panel result-panel" aria-live="polite"><p class="eyebrow">MODEL OUTPUT</p><div id="result-content" class="empty-state"><div class="signal-icon"><span></span></div><h3>Awaiting analysis</h3><p>Enter transaction details and run the model to see its classification.</p></div></aside>
+    </section>
+    <section class="metrics-section"><div class="metrics-heading"><div><p class="eyebrow">MODEL CHECK</p><h3>Test-set performance</h3></div><span class="metrics-note">80% train · 20% test</span></div><div class="metrics-grid"><article class="metric-card"><span>Accuracy</span><strong>{{ '%.2f'|format(metrics.accuracy * 100) }}%</strong></article><article class="metric-card"><span>Precision</span><strong>{{ '%.2f'|format(metrics.precision * 100) }}%</strong></article><article class="metric-card"><span>Recall</span><strong>{{ '%.2f'|format(metrics.recall * 100) }}%</strong></article><article class="metric-card"><span>F1 score</span><strong>{{ '%.2f'|format(metrics.f1_score * 100) }}%</strong></article></div><p class="metrics-disclaimer">Calculated on a held-out test set from this dataset; these scores do not guarantee performance on real-world transactions.</p></section>
+    <footer>Academic demonstration · Random Forest classifier · Not a real banking decision system</footer>
+  </main>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body></html>

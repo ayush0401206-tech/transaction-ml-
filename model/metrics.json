@@ -1,0 +1,48 @@
+{
+  "rows": 15000,
+  "columns_after_removal": 11,
+  "train_rows": 12000,
+  "test_rows": 3000,
+  "accuracy": 0.938333,
+  "precision": 0.842105,
+  "recall": 0.610354,
+  "f1_score": 0.707741,
+  "confusion_matrix": [
+    [
+      2591,
+      42
+    ],
+    [
+      143,
+      224
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.9476956839795172,
+      "recall": 0.9840486137485758,
+      "f1-score": 0.9655300912986771,
+      "support": 2633.0
+    },
+    "1": {
+      "precision": 0.8421052631578947,
+      "recall": 0.6103542234332425,
+      "f1-score": 0.707740916271722,
+      "support": 367.0
+    },
+    "accuracy": 0.9383333333333334,
+    "macro avg": {
+      "precision": 0.894900473568706,
+      "recall": 0.7972014185909091,
+      "f1-score": 0.8366355037851996,
+      "support": 3000.0
+    },
+    "weighted avg": {
+      "precision": 0.9347784558323388,
+      "recall": 0.9383333333333334,
+      "f1-score": 0.9339938822203794,
+      "support": 3000.0
+    }
+  },
+  "note": "Metrics are from a stratified 80/20 held-out test split using this dataset with IP_Risk_Score removed."
+}

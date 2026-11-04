@@ -10,10 +10,16 @@ app = Flask(__name__)
 model = joblib.load(BASE_DIR / "model" / "fraud_model.pkl")
 with open(BASE_DIR / "model" / "metrics.json", "r", encoding="utf-8") as f:
     METRICS = json.load(f)
+with open(BASE_DIR / "model" / "model_comparison.json", "r", encoding="utf-8") as f:
+    COMPARISON = json.load(f)
 
 @app.route("/")
 def index():
     return render_template("index.html", metrics=METRICS)
+
+@app.route("/model-comparison")
+def model_comparison():
+    return render_template("model_comparison.html", comparison=COMPARISON)
 
 @app.route("/predict", methods=["POST"])
 def predict():

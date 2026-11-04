@@ -1,0 +1,193 @@
+{
+  "dataset_rows": 15000,
+  "columns_after_removal": 11,
+  "train_rows": 12000,
+  "test_rows": 3000,
+  "test_size": 0.2,
+  "random_state": 42,
+  "best_model_by_f1": "Random Forest",
+  "models": {
+    "Logistic Regression": {
+      "accuracy": 0.822,
+      "precision": 0.40301974448315914,
+      "recall": 0.9455040871934605,
+      "f1_score": 0.5651465798045603,
+      "confusion_matrix": [
+        [
+          2119,
+          514
+        ],
+        [
+          20,
+          347
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.9906498363721365,
+          "recall": 0.8047854158754273,
+          "f1-score": 0.8880972338642079,
+          "support": 2633.0
+        },
+        "1": {
+          "precision": 0.40301974448315914,
+          "recall": 0.9455040871934605,
+          "f1-score": 0.5651465798045603,
+          "support": 367.0
+        },
+        "accuracy": 0.822,
+        "macro avg": {
+          "precision": 0.6968347904276478,
+          "recall": 0.8751447515344439,
+          "f1-score": 0.7266219068343841,
+          "support": 3000.0
+        },
+        "weighted avg": {
+          "precision": 0.9187630884643849,
+          "recall": 0.822,
+          "f1-score": 0.848589603850911,
+          "support": 3000.0
+        }
+      },
+      "training_seconds": 0.1539,
+      "model_file": "logistic_regression_model.pkl"
+    },
+    "Random Forest": {
+      "accuracy": 0.9383333333333334,
+      "precision": 0.8421052631578947,
+      "recall": 0.6103542234332425,
+      "f1_score": 0.707740916271722,
+      "confusion_matrix": [
+        [
+          2591,
+          42
+        ],
+        [
+          143,
+          224
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.9476956839795172,
+          "recall": 0.9840486137485758,
+          "f1-score": 0.9655300912986771,
+          "support": 2633.0
+        },
+        "1": {
+          "precision": 0.8421052631578947,
+          "recall": 0.6103542234332425,
+          "f1-score": 0.707740916271722,
+          "support": 367.0
+        },
+        "accuracy": 0.9383333333333334,
+        "macro avg": {
+          "precision": 0.894900473568706,
+          "recall": 0.7972014185909091,
+          "f1-score": 0.8366355037851996,
+          "support": 3000.0
+        },
+        "weighted avg": {
+          "precision": 0.9347784558323388,
+          "recall": 0.9383333333333334,
+          "f1-score": 0.9339938822203794,
+          "support": 3000.0
+        }
+      },
+      "training_seconds": 0.9738,
+      "model_file": "random_forest_model.pkl"
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.822,
+      "precision": 0.40279394644935973,
+      "recall": 0.9427792915531336,
+      "f1_score": 0.564437194127243,
+      "confusion_matrix": [
+        [
+          2120,
+          513
+        ],
+        [
+          21,
+          346
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.9901914992993928,
+          "recall": 0.8051652107861754,
+          "f1-score": 0.8881441139505656,
+          "support": 2633.0
+        },
+        "1": {
+          "precision": 0.40279394644935973,
+          "recall": 0.9427792915531336,
+          "f1-score": 0.564437194127243,
+          "support": 367.0
+        },
+        "accuracy": 0.822,
+        "macro avg": {
+          "precision": 0.6964927228743762,
+          "recall": 0.8739722511696545,
+          "f1-score": 0.7262906540389042,
+          "support": 3000.0
+        },
+        "weighted avg": {
+          "precision": 0.9183331986674054,
+          "recall": 0.822,
+          "f1-score": 0.8485439674255124,
+          "support": 3000.0
+        }
+      },
+      "training_seconds": 1.8593,
+      "model_file": "gradient_boosting_model.pkl"
+    },
+    "AdaBoost": {
+      "accuracy": 0.836,
+      "precision": 0.42098609355246525,
+      "recall": 0.9073569482288828,
+      "f1_score": 0.5751295336787565,
+      "confusion_matrix": [
+        [
+          2175,
+          458
+        ],
+        [
+          34,
+          333
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.9846084200995926,
+          "recall": 0.8260539308773263,
+          "f1-score": 0.8983890954151177,
+          "support": 2633.0
+        },
+        "1": {
+          "precision": 0.42098609355246525,
+          "recall": 0.9073569482288828,
+          "f1-score": 0.5751295336787565,
+          "support": 367.0
+        },
+        "accuracy": 0.836,
+        "macro avg": {
+          "precision": 0.7027972568260289,
+          "recall": 0.8667054395531045,
+          "f1-score": 0.7367593145469371,
+          "support": 3000.0
+        },
+        "weighted avg": {
+          "precision": 0.9156586221519941,
+          "recall": 0.836,
+          "f1-score": 0.8588436756960363,
+          "support": 3000.0
+        }
+      },
+      "training_seconds": 0.7426,
+      "model_file": "adaboost_model.pkl"
+    }
+  },
+  "metric_note": "Metrics are calculated on the same stratified 80/20 held-out test split. They are dataset-specific and do not guarantee real-world performance.",
+  "target_note": "Class 0 is treated as Normal and class 1 as Suspicious, assuming the dataset labels use this mapping."
+}

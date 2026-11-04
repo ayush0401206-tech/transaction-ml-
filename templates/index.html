@@ -7,8 +7,8 @@
 </head>
 <body>
   <main class="page-shell">
-    <header class="topbar"><div class="brand-mark">ST</div><div><p class="eyebrow">MACHINE LEARNING PROJECT</p><h1>Suspicious Transaction Detection</h1></div><span class="status"><i></i> Model ready</span></header>
-    <section class="intro"><p class="eyebrow">TRANSACTION REVIEW</p><h2>Check a transaction.<br><span>Understand its risk.</span></h2><p class="intro-copy">Enter the transaction details below. A Random Forest model trained on the supplied dataset will classify the transaction as Normal or Suspicious.</p></section>
+    <header class="topbar"><div class="brand-mark">ST</div><div><p class="eyebrow">MACHINE LEARNING PROJECT</p><h1>Suspicious Transaction Detection</h1></div><div class="topbar-actions"><a class="button button-quiet" href="{{ url_for('model_comparison') }}">Compare 4 Models ↗</a><span class="status"><i></i> Model ready</span></div></header>
+    <section class="intro"><p class="eyebrow">TRANSACTION REVIEW</p><h2>Check a transaction.<br><span>Understand its risk.</span></h2><p class="intro-copy">Enter the transaction details below. The Random Forest model analyzes the transaction and classifies it as Normal or Suspicious. Visit Model Comparison to review all four algorithms.</p></section>
     <section class="layout">
       <form id="transaction-form" class="panel">
         <div class="panel-heading"><div><p class="eyebrow">INPUT</p><h3>Transaction details</h3></div><button type="button" id="sample-button" class="button button-quiet">Load sample</button></div>
@@ -28,7 +28,7 @@
       <aside class="panel result-panel" aria-live="polite"><p class="eyebrow">MODEL OUTPUT</p><div id="result-content" class="empty-state"><div class="signal-icon"><span></span></div><h3>Awaiting analysis</h3><p>Enter transaction details and run the model to see its classification.</p></div></aside>
     </section>
     <section class="metrics-section"><div class="metrics-heading"><div><p class="eyebrow">MODEL CHECK</p><h3>Test-set performance</h3></div><span class="metrics-note">80% train · 20% test</span></div><div class="metrics-grid"><article class="metric-card"><span>Accuracy</span><strong>{{ '%.2f'|format(metrics.accuracy * 100) }}%</strong></article><article class="metric-card"><span>Precision</span><strong>{{ '%.2f'|format(metrics.precision * 100) }}%</strong></article><article class="metric-card"><span>Recall</span><strong>{{ '%.2f'|format(metrics.recall * 100) }}%</strong></article><article class="metric-card"><span>F1 score</span><strong>{{ '%.2f'|format(metrics.f1_score * 100) }}%</strong></article></div><p class="metrics-disclaimer">Calculated on a held-out test set from this dataset; these scores do not guarantee performance on real-world transactions.</p></section>
-    <footer>Academic demonstration · Random Forest classifier · Not a real banking decision system</footer>
+    <footer>Academic demonstration · Random Forest prediction · Four-model comparison · Not a real banking decision system</footer>
   </main>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body></html>

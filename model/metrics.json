@@ -3,10 +3,10 @@
   "columns_after_removal": 11,
   "train_rows": 12000,
   "test_rows": 3000,
-  "accuracy": 0.938333,
-  "precision": 0.842105,
-  "recall": 0.610354,
-  "f1_score": 0.707741,
+  "accuracy": 0.9383333333333334,
+  "precision": 0.8421052631578947,
+  "recall": 0.6103542234332425,
+  "f1_score": 0.707740916271722,
   "confusion_matrix": [
     [
       2591,
@@ -44,5 +44,5 @@
       "support": 3000.0
     }
   },
-  "note": "Metrics are from a stratified 80/20 held-out test split using this dataset with IP_Risk_Score removed."
+  "note": "Metrics are calculated on the same stratified 80/20 held-out test split. They are dataset-specific and do not guarantee real-world performance."
 }

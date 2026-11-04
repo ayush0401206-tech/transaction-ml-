@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Comparison · Suspicious Transaction Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand-mark">ST</div>
+      <div><p class="eyebrow">MACHINE LEARNING PROJECT</p><h1>Suspicious Transaction Detection</h1></div>
+      <div class="topbar-actions"><a class="button button-quiet" href="{{ url_for('index') }}">← Back to Prediction</a><span class="status"><i></i> Comparison ready</span></div>
+    </header>
+
+    <section class="intro comparison-intro">
+      <p class="eyebrow">MODEL LAB · HELD-OUT TEST RESULTS</p>
+      <h2>Four models.<br><span>One clear comparison.</span></h2>
+      <p class="intro-copy">Compare Logistic Regression, Random Forest, Gradient Boosting and AdaBoost using the same stratified 80/20 train-test split. Metrics are generated from your dataset, not manually entered.</p>
+    </section>
+
+    {% set best = comparison.models[comparison.best_model_by_f1] %}
+    <section class="winner-panel">
+      <div class="winner-icon">✦</div>
+      <div class="winner-copy"><p class="eyebrow">TOP MODEL BY F1 SCORE</p><h2>{{ comparison.best_model_by_f1 }}</h2><p>Selected by the highest F1 score among the evaluated models. Always review recall and false positives too.</p></div>
+      <div class="winner-score"><span>F1 score</span><strong>{{ '%.2f'|format(best.f1_score * 100) }}%</strong></div>
+    </section>
+
+    <section class="metrics-section comparison-section">
+      <div class="metrics-heading"><div><p class="eyebrow">AT A GLANCE</p><h3>Best result by metric</h3></div><span class="metrics-note">Test rows: {{ comparison.test_rows }}</span></div>
+      <div class="metrics-grid four-metric-grid">
+        {% set best_accuracy = comparison.models.values()|sort(attribute='accuracy', reverse=true)|first %}
+        {% set best_precision = comparison.models.values()|sort(attribute='precision', reverse=true)|first %}
+        {% set best_recall = comparison.models.values()|sort(attribute='recall', reverse=true)|first %}
+        {% set best_f1 = comparison.models.values()|sort(attribute='f1_score', reverse=true)|first %}
+        <article class="metric-card"><span>Highest accuracy</span><strong>{{ '%.2f'|format(best_accuracy.accuracy * 100) }}%</strong>{% for model_name, metric_data in comparison.models.items() %}{% if metric_data.accuracy == best_accuracy.accuracy %}<small>{{ model_name }}</small>{% endif %}{% endfor %}</article>
+        <article class="metric-card"><span>Highest precision</span><strong>{{ '%.2f'|format(best_precision.precision * 100) }}%</strong>{% for model_name, metric_data in comparison.models.items() %}{% if metric_data.precision == best_precision.precision %}<small>{{ model_name }}</small>{% endif %}{% endfor %}</article>
+        <article class="metric-card"><span>Highest fraud recall</span><strong>{{ '%.2f'|format(best_recall.recall * 100) }}%</strong>{% for model_name, metric_data in comparison.models.items() %}{% if metric_data.recall == best_recall.recall %}<small>{{ model_name }}</small>{% endif %}{% endfor %}</article>
+        <article class="metric-card"><span>Highest F1 score</span><strong>{{ '%.2f'|format(best_f1.f1_score * 100) }}%</strong>{% for model_name, metric_data in comparison.models.items() %}{% if metric_data.f1_score == best_f1.f1_score %}<small>{{ model_name }}</small>{% endif %}{% endfor %}</article>
+      </div>
+    </section>
+
+    <section class="panel comparison-panel">
+      <div class="panel-heading comparison-heading"><div><p class="eyebrow">SIDE-BY-SIDE</p><h3>Performance table</h3></div><span class="metrics-note">No ROC-AUC included</span></div>
+      <div class="table-scroll"><table class="comparison-table">
+        <thead><tr><th>Algorithm</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 score</th><th>Training time</th></tr></thead>
+        <tbody>
+        {% for name, m in comparison.models.items() %}
+          <tr class="{% if name == comparison.best_model_by_f1 %}best-row{% endif %}"><td><strong>{{ name }}</strong>{% if name == comparison.best_model_by_f1 %}<span class="best-pill">Best F1</span>{% endif %}</td><td>{{ '%.2f'|format(m.accuracy * 100) }}%</td><td>{{ '%.2f'|format(m.precision * 100) }}%</td><td>{{ '%.2f'|format(m.recall * 100) }}%</td><td><strong>{{ '%.2f'|format(m.f1_score * 100) }}%</strong></td><td>{{ '%.3f'|format(m.training_seconds) }} s</td></tr>
+        {% endfor %}
+        </tbody>
+      </table></div>
+      <p class="metrics-disclaimer">Accuracy is the proportion of all correct predictions. Precision measures how many flagged transactions are actually fraud. Recall measures how many fraud cases are detected. F1 balances precision and recall.</p>
+    </section>
+
+    <section class="panel comparison-panel chart-panel">
+      <div class="panel-heading"><div><p class="eyebrow">VISUAL COMPARISON</p><h3>Metric scores by algorithm</h3></div></div>
+      {% for name, m in comparison.models.items() %}
+        <div class="model-bars"><div class="model-bars-title"><strong>{{ name }}</strong><span>Accuracy {{ '%.1f'|format(m.accuracy * 100) }}% · F1 {{ '%.1f'|format(m.f1_score * 100) }}%</span></div>
+          {% for metric_label, metric_key in [('Accuracy','accuracy'),('Precision','precision'),('Recall','recall'),('F1 score','f1_score')] %}
+            <div class="bar-line"><span>{{ metric_label }}</span><div class="bar-track"><div class="bar-fill {{ metric_key }}" style="width: {{ (m[metric_key] * 100)|round(2) }}%"></div></div><b>{{ '%.1f'|format(m[metric_key] * 100) }}%</b></div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </section>
+
+    <section class="algorithm-grid">
+      {% for name, m in comparison.models.items() %}
+        <article class="panel algorithm-card">
+          <p class="eyebrow">ALGORITHM DETAILS</p><h3>{{ name }}</h3>
+          {% if name == 'Logistic Regression' %}<p>A linear classification baseline that estimates class probabilities. Numeric features are scaled for this model.</p>
+          {% elif name == 'Random Forest' %}<p>Combines many decision trees. It can learn complex patterns and is the model currently used by the transaction prediction page.</p>
+          {% elif name == 'Gradient Boosting' %}<p>Builds decision trees sequentially, with each stage improving on errors from earlier stages.</p>
+          {% else %}<p>Builds a sequence of weak learners and gives more attention to examples that were previously misclassified.</p>{% endif %}
+          <div class="algorithm-score"><span>Accuracy</span><strong>{{ '%.2f'|format(m.accuracy * 100) }}%</strong></div>
+          <div class="algorithm-score"><span>F1 score</span><strong>{{ '%.2f'|format(m.f1_score * 100) }}%</strong></div>
+          <details><summary>View confusion matrix</summary>
+            <div class="table-scroll"><table class="mini-matrix"><thead><tr><th>Actual / Predicted</th><th>Normal (0)</th><th>Suspicious (1)</th></tr></thead><tbody><tr><th>Normal (0)</th><td>{{ m.confusion_matrix[0][0] }}</td><td>{{ m.confusion_matrix[0][1] }}</td></tr><tr><th>Suspicious (1)</th><td>{{ m.confusion_matrix[1][0] }}</td><td>{{ m.confusion_matrix[1][1] }}</td></tr></tbody></table></div>
+          </details>
+        </article>
+      {% endfor %}
+    </section>
+
+    <section class="note-panel"><strong>How to interpret the winner</strong><p>The best model is selected by F1 score on this held-out test split. In fraud detection, recall and the number of false alarms are also important. A flagged transaction is a risk signal for review, not proof of fraud.</p><p>Dataset: {{ comparison.dataset_rows }} rows · Training: {{ comparison.train_rows }} rows · Testing: {{ comparison.test_rows }} rows · Random state: {{ comparison.random_state }}</p></section>
+    <footer>Academic demonstration · Four-model comparison · Scores are dataset-specific and not a real banking decision system</footer>
+  </main>
+</body>
+</html>

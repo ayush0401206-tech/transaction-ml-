@@ -1,48 +1,53 @@
 {
-  "rows": 15000,
-  "columns_after_removal": 11,
-  "train_rows": 12000,
+  "dataset_rows": 15000,
+  "train_rows": 9000,
+  "validation_rows": 3000,
   "test_rows": 3000,
-  "accuracy": 0.9383333333333334,
-  "precision": 0.8421052631578947,
-  "recall": 0.6103542234332425,
-  "f1_score": 0.707740916271722,
+  "random_state": 42,
+  "split_note": "Stratified 60% train / 20% validation / 20% final test split.",
+  "selected_model": "Gradient Boosting",
+  "threshold": 0.8699999999999999,
+  "accuracy": 0.946,
+  "precision": 0.9723502304147466,
+  "recall": 0.5749318801089919,
+  "f1_score": 0.7226027397260274,
+  "pr_auc": 0.807489041676871,
   "confusion_matrix": [
     [
-      2591,
-      42
+      2627,
+      6
     ],
     [
-      143,
-      224
+      156,
+      211
     ]
   ],
   "classification_report": {
     "0": {
-      "precision": 0.9476956839795172,
-      "recall": 0.9840486137485758,
-      "f1-score": 0.9655300912986771,
+      "precision": 0.9439453826805605,
+      "recall": 0.9977212305355109,
+      "f1-score": 0.9700886262924667,
       "support": 2633.0
     },
     "1": {
-      "precision": 0.8421052631578947,
-      "recall": 0.6103542234332425,
-      "f1-score": 0.707740916271722,
+      "precision": 0.9723502304147466,
+      "recall": 0.5749318801089919,
+      "f1-score": 0.7226027397260274,
       "support": 367.0
     },
-    "accuracy": 0.9383333333333334,
+    "accuracy": 0.946,
     "macro avg": {
-      "precision": 0.894900473568706,
-      "recall": 0.7972014185909091,
-      "f1-score": 0.8366355037851996,
+      "precision": 0.9581478065476535,
+      "recall": 0.7863265553222514,
+      "f1-score": 0.8463456830092471,
       "support": 3000.0
     },
     "weighted avg": {
-      "precision": 0.9347784558323388,
-      "recall": 0.9383333333333334,
-      "f1-score": 0.9339938822203794,
+      "precision": 0.9474202423867093,
+      "recall": 0.946,
+      "f1-score": 0.939812852835839,
       "support": 3000.0
     }
   },
-  "note": "Metrics are calculated on the same stratified 80/20 held-out test split. They are dataset-specific and do not guarantee real-world performance."
+  "note": "Models and thresholds are selected using validation data. Final test metrics are reported only for the selected model on the untouched test split. Dataset-specific results do not guarantee real-world performance."
 }

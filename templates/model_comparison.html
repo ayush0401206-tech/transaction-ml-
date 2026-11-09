@@ -22,12 +22,12 @@
     {% set best = comparison.models[comparison.best_model_by_f1] %}
     <section class="winner-panel">
       <div class="winner-icon">✦</div>
-      <div class="winner-copy"><p class="eyebrow">TOP MODEL BY F1 SCORE</p><h2>{{ comparison.best_model_by_f1 }}</h2><p>Selected by the highest F1 score among the evaluated models. Always review recall and false positives too.</p></div>
+      <div class="winner-copy"><p class="eyebrow">SELECTED BY VALIDATION F1</p><h2>{{ comparison.best_model_by_f1 }}</h2><p>Selected using validation F1. Final test results are reported separately; review recall and false positives too.</p></div>
       <div class="winner-score"><span>F1 score</span><strong>{{ '%.2f'|format(best.f1_score * 100) }}%</strong></div>
     </section>
 
     <section class="metrics-section comparison-section">
-      <div class="metrics-heading"><div><p class="eyebrow">AT A GLANCE</p><h3>Best result by metric</h3></div><span class="metrics-note">Test rows: {{ comparison.test_rows }}</span></div>
+      <div class="metrics-heading"><div><p class="eyebrow">AT A GLANCE</p><h3>Best result by metric</h3></div><span class="metrics-note">Validation rows: {{ comparison.validation_rows }}</span></div>
       <div class="metrics-grid four-metric-grid">
         {% set best_accuracy = comparison.models.values()|sort(attribute='accuracy', reverse=true)|first %}
         {% set best_precision = comparison.models.values()|sort(attribute='precision', reverse=true)|first %}
@@ -41,7 +41,7 @@
     </section>
 
     <section class="panel comparison-panel">
-      <div class="panel-heading comparison-heading"><div><p class="eyebrow">SIDE-BY-SIDE</p><h3>Performance table</h3></div><span class="metrics-note">No ROC-AUC included</span></div>
+      <div class="panel-heading comparison-heading"><div><p class="eyebrow">SIDE-BY-SIDE</p><h3>Performance table</h3></div><span class="metrics-note">Validation-set comparison</span></div>
       <div class="table-scroll"><table class="comparison-table">
         <thead><tr><th>Algorithm</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 score</th><th>Training time</th></tr></thead>
         <tbody>
@@ -81,7 +81,7 @@
       {% endfor %}
     </section>
 
-    <section class="note-panel"><strong>How to interpret the winner</strong><p>The best model is selected by F1 score on this held-out test split. In fraud detection, recall and the number of false alarms are also important. A flagged transaction is a risk signal for review, not proof of fraud.</p><p>Dataset: {{ comparison.dataset_rows }} rows · Training: {{ comparison.train_rows }} rows · Testing: {{ comparison.test_rows }} rows · Random state: {{ comparison.random_state }}</p></section>
+    <section class="note-panel"><strong>How to interpret the winner</strong><p>The selected model is chosen by F1 score on the validation split; the final test split is reserved for one final evaluation. In fraud detection, recall and the number of false alarms are also important. A flagged transaction is a risk signal for review, not proof of fraud.</p><p>Dataset: {{ comparison.dataset_rows }} rows · Training: {{ comparison.train_rows }} rows · Validation: {{ comparison.validation_rows }} rows · Testing: {{ comparison.test_rows }} rows · Random state: {{ comparison.random_state }}</p></section>
     <footer>Academic demonstration · Four-model comparison · Scores are dataset-specific and not a real banking decision system</footer>
   </main>
 </body>
